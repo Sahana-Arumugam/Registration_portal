@@ -1,0 +1,7 @@
+{
+  "name": "AI for Humanity Summit 2025",
+  "description": "A global registration portal for the AI for Humanity Summit 2025, organized by Impact Collaborative. Focused on building ethical, sustainable, and human-centered AI solutions.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
