@@ -1,6 +1,26 @@
-import { Registration, RegistrationType, RegistrationFormData } from '../types';
+/// <reference types="vite/client" />
 
-const API_URL = "http://localhost:5000/api";
+interface ImportMetaEnv {
+  readonly VITE_API_URL: string
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv
+}
+
+import {
+  Registration,
+  RegistrationType,
+  RegistrationFormData
+} from "../types";
+
+/**
+ * API URL
+ * - Local: http://localhost:5000/api
+ * - Production: https://your-backend-domain/api
+ */
+const API_URL = import.meta.env.VITE_API_URL;
+console.log("API URL =", import.meta.env.VITE_API_URL);
 
 export const db = {
   register: async (
@@ -20,7 +40,10 @@ export const db = {
       name: data.name.trim(),
       email: data.email.trim(),
       registration_type: type.toLowerCase(),
-      company: type === RegistrationType.PROFESSIONAL ? data.company?.trim() : "",
+      company:
+        type === RegistrationType.PROFESSIONAL
+          ? data.company?.trim()
+          : "",
       phone: fullPhone
     };
 
@@ -33,7 +56,8 @@ export const db = {
     });
 
     if (!response.ok) {
-      throw new Error("Registration failed");
+      const error = await response.json();
+      throw new Error(error.message || "Registration failed");
     }
 
     return response.json();

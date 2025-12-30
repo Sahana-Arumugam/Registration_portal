@@ -8,10 +8,11 @@ const app = express();
 
 // 👇 ADD THIS BLOCK (VERY IMPORTANT)
 app.use(cors({
-  origin: "http://localhost:3001", // your Vite frontend
-  methods: ["GET", "POST"],
+  origin: true, // ✅ allow any origin (local + Vercel)
+  methods: ["GET", "POST", "OPTIONS"],
   credentials: true
 }));
+
 
 app.use(express.json());
 
